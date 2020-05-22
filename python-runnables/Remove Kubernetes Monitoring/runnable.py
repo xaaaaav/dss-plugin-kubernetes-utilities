@@ -1,4 +1,6 @@
 # This file is the actual code for the Python runnable Remove Kubernetes Monitoring
+import os
+
 from kubernetes.client.rest import ApiException
 import kubernetes.client
 import kubernetes.config
@@ -37,6 +39,8 @@ class MyRunnable(Runnable):
         """
         Remove different helm installs and remove the monitoring namespace
         """
+        os.environ["KUBECONFIG"] = self.config.get("kubeConfig")
+
         self.Helm.uninstall("prometheus", self.ns)
         self.Helm.uninstall("grafana", self.ns)
         self.Helm.uninstall("elasticsearch", self.ns)
@@ -48,4 +52,6 @@ class MyRunnable(Runnable):
             api_response = api_instance.delete_namespace(self.ns, propagation_policy="Foreground")
         except ApiException as e:
             raise Exception("Exception when calling CoreV1Api->delete_namespace: %s\n" % e)
+
+        del os.environ["KUBECONFIG"]
         

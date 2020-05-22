@@ -8,6 +8,13 @@
     "impersonate": false,
     "params": [
         {
+            "name": "kubeConfig",
+            "label": "Kube Config File",
+            "type": "STRING",
+            "description": "Path to Kube Config file for the requested cluster",
+            "mandatory": true
+        },
+        {
             "name": "namespace",
             "label": "Namespace",
             "type": "STRING",
