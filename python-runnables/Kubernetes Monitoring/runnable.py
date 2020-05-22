@@ -103,10 +103,10 @@ class MyRunnable(Runnable):
             for a in item.status.addresses:
                 if self.private:
                     if a.type == "InternalIP":
-                        hosts.append("http://" + a.address + ":30000")
+                        hosts.append("http://" + a.address + ":30001")
                 else:
                     if a.type == "ExternalIP":
-                        hosts.append("http://" + a.address + ":30000")
+                        hosts.append("http://" + a.address + ":30001")
         
         return hosts
             
