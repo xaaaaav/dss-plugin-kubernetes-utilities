@@ -1,0 +1,63 @@
+/* This file is the descriptor for the python runnable Helm Runner */
+{
+    "meta": {
+        // label: name of the runnable as displayed, should be short
+        "label": "Helm Runner",
+        "description": "(Advanced Use Only) Run Helm commands",
+        "icon": "icon-cogs"
+    },
+
+    "impersonate": false,
+
+    "params": [
+        {
+          "type": "SELECT",
+          "name": "operator",
+          "label": "Helm Operation",
+          "selectChoices": [
+              { "value": "addRepo", "label": "Add Helm Repository"},
+              { "value": "install", "label": "Install Helm Chart"},
+              { "value": "removeRepo", "label": "Remove Helm Repository"},
+              { "value": "search", "label": "Search Installed Helm Repositories"},
+              { "value": "uninstall", "label": "Uninstall Helm Chart"},
+              { "value": "update", "label": "Update Helm repositories"}
+          ],
+          mandatory: true
+        },
+        {
+            "type": "STRING",
+            "name": "chartName",
+            "visibilityCondition": "model.operator == 'install' || model.operator == 'uninstall'",
+            "label": "Helm Chart Name"
+        },
+        {
+            "type": "STRING",
+            "name": "repo",
+            "visibilityCondition": "model.operator == 'addRepo' || model.operator == 'removeRepo' || model.operator == 'install'",
+            "label": "Helm Repository"
+        },
+        {
+            "type": "STRING",
+            "name": "namespace",
+            "visibilityCondition": "model.operator == 'install' || model.operator == 'uninstall'",
+            "label": "Namespace",
+            "description": "Namespace to install/uninstall in"
+        },
+        {
+            "type": "STRING",
+            "name": "repoUrl",
+            "visibilityCondition": "model.operator == 'addRepo'",
+            "label": "Helm Repository URL"
+        },
+        {
+            "type": "STRING",
+            "name": "searchTerm",
+            "visibilityCondition": "model.operator == 'search'",
+            "label": "Search Term"
+        }
+    ],
+    "permissions": [],
+    "resultType": "RESULT_TABLE",
+    "resultLabel": "my production",
+    "macroRoles": []
+}

@@ -1,0 +1,23 @@
+{
+    "meta": {
+
+        "label": "Install Helm",
+        "description": "(Advanced Use Only) Install package manager for Kubernetes: Helm",
+
+        // icon: must be one of the FontAwesome 3.2.1 icons, complete list here at https://fontawesome.com/v3.2.1/icons/
+        "icon": "icon-cloud-download"
+    },
+    "impersonate": false,
+    "params": [],
+    "permissions": [],
+    "resultType": "HTML",
+    "resultLabel": "my production",
+    "extension": "txt",
+    "mimeType": "text/plain",
+    "macroRoles": [
+     /* {
+            "type": "DATASET",
+            "targetParamsKey": "input_dataset"
+        } */
+    ]
+}

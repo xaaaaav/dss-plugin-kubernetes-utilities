@@ -1,0 +1,30 @@
+/* This file is the descriptor for the python runnable Remove Kubernetes Monitoring */
+{
+    "meta": {
+        "label": "Remove Kubernetes Monitoring",
+        "description": "(Advanced Use Only) Remove the installed kubernetes monitoring",
+        "icon": "icon-trash"
+    },
+    "impersonate": false,
+    "params": [
+        {
+            "name": "namespace",
+            "label": "Namespace",
+            "type": "STRING",
+            "description": "Kubernetes Namespace that monitoring is deployed in",
+            "mandatory": true,
+            "defaultValue": "dss-monitoring"
+        }
+    ],
+
+    /* list of required permissions on the project to see/run the runnable */
+    "permissions": [],
+    "resultType": "HTML",
+    /* label to use when the runnable's result is not inlined in the UI (ex: for urls) */
+    "resultLabel": "my production",
+    /* for FILE resultType, the extension to use for the temp file */
+    "extension": "txt",
+    /* for FILE resultType, the type of data stored in the temp file */
+    "mimeType": "text/plain",
+    "macroRoles": []
+}
