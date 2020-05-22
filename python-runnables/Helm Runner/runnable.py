@@ -1,7 +1,9 @@
 # This file is the actual code for the Python runnable Helm Runner
-from dku_helm.helm_command import Helm
+import os
 
 from dataiku.runnables import Runnable
+
+from dku_helm.helm_command import Helm
 
 class MyRunnable(Runnable):
     """The base interface for a Python runnable"""
@@ -30,6 +32,8 @@ class MyRunnable(Runnable):
         Do stuff here. Can return a string or raise an exception.
         The progress_callback is a function expecting 1 value: current progress
         """
+        os.environ["KUBECONFIG"] = self.config.get("kubeConfig")
+
         op = self.config.get("operator")
         
         if op == "addRepo":
@@ -51,3 +55,4 @@ class MyRunnable(Runnable):
             rt = self.Helm.search(self.config.get("searchTerm"))
             return rt
         
+        del os.environ["KUBECONFIG"]

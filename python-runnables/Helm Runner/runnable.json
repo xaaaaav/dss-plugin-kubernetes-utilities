@@ -11,6 +11,13 @@
 
     "params": [
         {
+            "name": "kubeConfig",
+            "label": "Kube Config File",
+            "type": "STRING",
+            "description": "Path to Kube Config file for the requested cluster",
+            "mandatory": true
+        },
+        {
           "type": "SELECT",
           "name": "operator",
           "label": "Helm Operation",
@@ -22,7 +29,7 @@
               { "value": "uninstall", "label": "Uninstall Helm Chart"},
               { "value": "update", "label": "Update Helm repositories"}
           ],
-          mandatory: true
+          "mandatory": true
         },
         {
             "type": "STRING",
