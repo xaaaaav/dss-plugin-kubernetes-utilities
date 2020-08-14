@@ -38,16 +38,17 @@ class S3Manifest:
     
 
 class GCSManifest:
-    def __init__(self, bucket, secret_name):
+    def __init__(self, bucket, secret_name, key_name):
         self.bucket = bucket
         self.secret_name = secret_name
+        self.key_name = key_name
         self.configs = self.add_gcs_configs()
         
     def add_gcs_configs(self):
         gcs_configs = [
             "gcs.enableGCS=true",
             "gcs.secret={}".format(self.secret_name),
-            "gcs.key=sparkonk8s.json",
+            "gcs.key={}".format(self.key_name),
             "gcs.logDirectory=gs://{}".format(self.bucket)
         ]
         
@@ -145,7 +146,8 @@ class MyRunnable(Runnable):
             secret_name = "history-secrets"
             cloud_manifest = GCSManifest(
                 self.config.get("cloudBucket"),
-                secret_name
+                secret_name,
+                self.config.get("gcpKeyName")
             )
         
         if self.config.get("k8sType") == "AKS":
