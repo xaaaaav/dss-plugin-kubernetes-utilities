@@ -47,6 +47,18 @@
             "visibilityCondition": "model.k8sType == 'EKS'"
         },
         {
+            "name": "gcpKeyName",
+            "label": "GCP Key Name",
+            "type": "STRING",
+            "visibilityCondition": "model.k8sType == 'GKE'"
+        },
+        {
+            "name": "gcpKey",
+            "label": "GCP Key Contents",
+            "type": "PASSWORD",
+            "visibilityCondition": "model.k8sType == 'GKE'"
+        },
+        {
             "name": "cloudBucket",
             "label": "Cloud Storage Bucket/Container",
             "type": "STRING",
