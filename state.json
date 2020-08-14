@@ -1,0 +1,15 @@
+{
+  "actions": [
+    {
+      "ts": 1597435687383,
+      "action": "INSTALL",
+      "user": "admin"
+    }
+  ],
+  "gitState": {
+    "enabled": true,
+    "repository": "git@github.com:xaaaaav/dss-plugin-kubernetes-utilities.git",
+    "path": "",
+    "checkout": ""
+  }
+}
