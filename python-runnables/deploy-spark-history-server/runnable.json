@@ -1,0 +1,71 @@
+/* This file is the descriptor for the python runnable deploy-spark-history-server */
+{
+    "meta": {
+        "label": "Deploy Spark History Server",
+        "description": "",
+        "icon": "icon-puzzle-piece"
+    },
+    "impersonate": false,
+    "params": [
+        {
+            "name": "k8sType",
+            "label": "Kubernetes Cloud Flavor",
+            "type": "SELECT",
+            "selectChoices": [
+                {
+                    "value": "EKS",
+                    "label": "EKS"
+                },
+                {
+                    "value": "GKE",
+                    "label": "GKE"
+                },
+                {
+                    "value": "AKS",
+                    "label": "AKS"
+                }
+            ],
+            "mandatory": true
+        },
+        {
+            "name": "kubeConfig",
+            "label": "Kube Config File",
+            "type": "STRING",
+            "description": "Path to Kube Config file for the requested cluster",
+            "mandatory": true
+        },
+        {
+            "name": "accessKey",
+            "label": "AWS Access Key",
+            "type": "STRING",
+            "visibilityCondition": "model.k8sType == 'EKS'"
+        },
+        {
+            "name": "secretKey",
+            "label": "AWS Secret Key",
+            "type": "PASSWORD",
+            "visibilityCondition": "model.k8sType == 'EKS'"
+        },
+        {
+            "name": "cloudBucket",
+            "label": "Cloud Storage Bucket/Container",
+            "type": "STRING",
+            "mandatory": true
+        }
+        
+    ],
+
+    /* list of required permissions on the project to see/run the runnable */
+    "permissions": [],
+
+    "resultType": "HTML",
+
+    "resultLabel": "my production",
+
+    "extension": "txt",
+
+    "mimeType": "text/plain",
+
+    "macroRoles": [
+    ]
+}
