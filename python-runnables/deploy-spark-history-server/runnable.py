@@ -55,7 +55,20 @@ class GCSManifest:
         return GLOBAL_CONFIGS + gcs_configs
     
     
-# class WASBManifest:
+class WASBManifest:
+    def __init__(self, bucket):
+        self.bucket = bucket
+        self.configs = self.add_wasb_configs()
+        
+    def add_wasb_configs(self):
+        wasb_configs = [
+            "wasbs.enableWASBS=true",
+            "wasbs.sasKeyMode=false",
+            "wasbs.logDirectory=wasbs:///{}".format(self.bucket),
+            "image.repository=xthierry/spark-history-server"
+        ]
+        
+        return GLOBAL_CONFIGS + wasb_configs
     
     
 
@@ -151,10 +164,16 @@ class MyRunnable(Runnable):
             )
         
         if self.config.get("k8sType") == "AKS":
-            pass
+            data = {
+                "azure-storage-account-name": b64encode(self.config.get("storageAccount")),
+                "azure-blob-container-name": b64encode(self.config.get("cloudBucket")),
+                "azure-storage-account-key": b64encode(self.config.get("storageAccountKey"))
+            }
+            secret_name = "azure-secrets"
+            cloud_manifest = WASBManifest(
+                self.config.get("wasbLogDirectory")
+            )
         
         self._create_ns_secret(data, secret_name)
         
         self._install_spark_history_server(cloud_manifest.configs)
-        
-        
