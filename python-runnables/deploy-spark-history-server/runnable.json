@@ -59,6 +59,24 @@
             "visibilityCondition": "model.k8sType == 'GKE'"
         },
         {
+            "name": "storageAccount",
+            "label": "Storage Account",
+            "type": "STRING",
+            "visibilityCondition": "model.k8sType == 'AKS'"
+        },
+        {
+            "name": "storageAccountKey",
+            "label": "Storage Account Key",
+            "type": "PASSWORD",
+            "visibilityCondition": "model.k8sType == 'AKS'"
+        },
+        {
+           "name": "wasbLogDirectory",
+            "label": "WASB Log Directory",
+            "type": "STRING",
+            "visibilityCondition": "model.k8sType == 'AKS'" 
+        },
+        {
             "name": "cloudBucket",
             "label": "Cloud Storage Bucket/Container",
             "type": "STRING",
