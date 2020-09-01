@@ -29,6 +29,8 @@ class Helm(object):
         cmd = [self.helm,"install",name,repo,"--namespace",namespace]
         cmd.extend(args)
         
+        print(cmd)
+        
         process = subprocess.Popen(
             cmd,
             stdout=subprocess.PIPE,
