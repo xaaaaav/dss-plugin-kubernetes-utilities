@@ -32,7 +32,7 @@ class MyRunnable(Runnable):
         
     def _install_eks_cni(self):
         """
-        Install prometheus to feed grafana dashboards
+        Install EKS CNI plugin through helm chart
         """
         self.Helm.add_repo("eks", "https://aws.github.io/eks-charts")
         
@@ -43,7 +43,8 @@ class MyRunnable(Runnable):
             
         cni_configs = [
             "originalMatchLabels=true",
-            "crd.create=false"
+            "crd.create=false",
+            "image.tag={}".format(self.config.get("cniVersionTag"))
         ]
         
         cni_configs.extend(cni_env_vars)
@@ -78,7 +79,7 @@ class MyRunnable(Runnable):
             stdout, stderr = process.communicate()
 
             if stderr:
-                raise Exception("Exception searching repos: {}".format(stderr))
+                raise Exception("Exception annotating {}: {}".format(kind, stderr))
                 
             cmd = ["kubectl", "-n", "kube-system", "annotate", "--overwrite", kind, "aws-node", "meta.helm.sh/release-namespace=kube-system"]
             process = subprocess.Popen(
@@ -89,7 +90,7 @@ class MyRunnable(Runnable):
             stdout, stderr = process.communicate()
 
             if stderr:
-                raise Exception("Exception searching repos: {}".format(stderr))
+                raise Exception("Exception annotating {}: {}".format(kind, stderr))
         
             cmd = ["kubectl", "-n", "kube-system", "label", "--overwrite", kind, "aws-node", "app.kubernetes.io/managed-by=Helm"]
             process = subprocess.Popen(
@@ -100,6 +101,6 @@ class MyRunnable(Runnable):
             stdout, stderr = process.communicate()
 
             if stderr:
-                raise Exception("Exception searching repos: {}".format(stderr))
+                raise Exception("Exception labeling {}: {}".format(kind, stderr))
                 
         self._install_eks_cni()

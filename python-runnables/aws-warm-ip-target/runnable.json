@@ -1,8 +1,8 @@
 {
     "meta": {
-        "label": "Deploy AWS CNI Warm IP Target",
-        "description": "(Advanced Use Only) Update Warm IP Target",
-        "icon": "icon-bar-chart"
+        "label": "Custom AWS EKS CNI Configuration",
+        "description": "(Advanced Use Only) The Amazon VPC CNI plugin for k8s supports a number of config options.",
+        "icon": "icon-exchange"
     },
     "impersonate": false,
     "params": [
@@ -21,8 +21,15 @@
             "defaultValue": [
                 {"from": "AWS_VPC_K8S_CNI_LOGLEVEL", "to": "DEBUG"},
                 {"from": "AWS_VPC_K8S_CNI_VETHPREFIX", "to": "eni"},
-                {"from": "AWS_VPC_ENI_MTU", "to": "\"9001\""}
+                {"from": "AWS_VPC_ENI_MTU", "to": "9001"}
             ]
+        },
+        {
+            "name": "cniVersionTag",
+            "label": "CNI Plugin Version Tag",
+            "type": "STRING",
+            "description": "To get the image tag, run: kubectl get ds -n kube-system aws-node -o jsonpath='{$.spec.template.spec.containers[:1].image}'",
+            "defaultValue": "v1.6.3-eksbuild.1"
         }
     ],
 
