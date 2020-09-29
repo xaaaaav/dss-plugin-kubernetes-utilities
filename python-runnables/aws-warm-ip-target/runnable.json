@@ -5,13 +5,13 @@
         "icon": "icon-exchange"
     },
     "impersonate": false,
+    "paramsPythonSetup": "compute_eks_choices.py",
     "params": [
         {
-            "name": "kubeConfig",
-            "label": "Kube Config File",
-            "type": "STRING",
-            "description": "Path to Kube Config file for the requested cluster",
-            "mandatory": true
+            "type": "SELECT",
+            "name": "cluster",
+            "label": "Select Cluster",
+            "getChoicesFromPython": true
         },
         {
             "name": "cniEnvVariables",
@@ -25,11 +25,11 @@
             ]
         },
         {
-            "name": "cniVersionTag",
-            "label": "CNI Plugin Version Tag",
-            "type": "STRING",
-            "description": "To get the image tag, run: kubectl get ds -n kube-system aws-node -o jsonpath='{$.spec.template.spec.containers[:1].image}'",
-            "defaultValue": "v1.6.3-eksbuild.1"
+            "name": "adoptExisting",
+            "label": "Adopt Existing aws-node Resources",
+            "type": "BOOLEAN",
+            "description": "If don't want to delete existing aws-node resources and want to update the existing, leave checked",
+            "defaultValue": true
         }
     ],
 

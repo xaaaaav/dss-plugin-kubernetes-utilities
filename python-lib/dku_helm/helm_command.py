@@ -21,6 +21,19 @@ class Helm(object):
         
         if stderr:
             raise Exception("Exception adding Helm {} charts repository from {}: {}".format(repo, repo_url, stderr))
+            
+    def check_installed(self, name, namespace):
+        process = subprocess.Popen(
+            [self.helm, "status", "-n", namespace, name],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        stdout, stderr = process.communicate()
+        
+        if stderr:
+            return False
+        
+        return True
         
     def install(self, name, repo, namespace, args=[]):
         """
@@ -121,4 +134,23 @@ class Helm(object):
         
         if stderr:
             raise Exception("Exception updating helm repo: {}".format(stderr))
+            
+    def upgrade(self, name, repo, namespace, args=[]):
+        """
+        Upgrade a Helm Chart from a specific Helm Chart Repository and place in namespace
+        """
+        cmd = [self.helm,"upgrade",name,repo,"--namespace",namespace]
+        cmd.extend(args)
+        
+        print(cmd)
+        
+        process = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        stdout, stderr = process.communicate()
+        
+        if stderr:
+            raise Exception("Exception installing {} from {}: {}".format(name, repo, stderr))
     
