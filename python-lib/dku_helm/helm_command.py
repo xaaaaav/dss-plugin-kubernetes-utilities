@@ -152,5 +152,5 @@ class Helm(object):
         stdout, stderr = process.communicate()
         
         if stderr:
-            raise Exception("Exception installing {} from {}: {}".format(name, repo, stderr))
+            raise Exception("Exception upgrading {} from {}: {}".format(name, repo, stderr))
     

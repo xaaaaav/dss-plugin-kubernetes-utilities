@@ -78,7 +78,7 @@ class MyRunnable(Runnable):
         stdout, stderr = process.communicate()
 
         if stderr:
-            raise Exception("Exception annotating {}: {}".format(kind, stderr))
+            raise Exception("Exception getting CNI Version tag {}: {}".format(kind, stderr))
             
         cni_version = re.findall(r':(.*)\'', stdout)[0]
         
