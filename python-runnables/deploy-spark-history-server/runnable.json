@@ -1,0 +1,101 @@
+/* This file is the descriptor for the python runnable deploy-spark-history-server */
+{
+    "meta": {
+        "label": "Deploy Spark History Server",
+        "description": "",
+        "icon": "icon-puzzle-piece"
+    },
+    "impersonate": false,
+    "params": [
+        {
+            "name": "k8sType",
+            "label": "Kubernetes Cloud Flavor",
+            "type": "SELECT",
+            "selectChoices": [
+                {
+                    "value": "EKS",
+                    "label": "EKS"
+                },
+                {
+                    "value": "GKE",
+                    "label": "GKE"
+                },
+                {
+                    "value": "AKS",
+                    "label": "AKS"
+                }
+            ],
+            "mandatory": true
+        },
+        {
+            "name": "kubeConfig",
+            "label": "Kube Config File",
+            "type": "STRING",
+            "description": "Path to Kube Config file for the requested cluster",
+            "mandatory": true
+        },
+        {
+            "name": "accessKey",
+            "label": "AWS Access Key",
+            "type": "STRING",
+            "visibilityCondition": "model.k8sType == 'EKS'"
+        },
+        {
+            "name": "secretKey",
+            "label": "AWS Secret Key",
+            "type": "PASSWORD",
+            "visibilityCondition": "model.k8sType == 'EKS'"
+        },
+        {
+            "name": "gcpKeyName",
+            "label": "GCP Key Name",
+            "type": "STRING",
+            "visibilityCondition": "model.k8sType == 'GKE'"
+        },
+        {
+            "name": "gcpKey",
+            "label": "GCP Key Contents",
+            "type": "PASSWORD",
+            "visibilityCondition": "model.k8sType == 'GKE'"
+        },
+        {
+            "name": "storageAccount",
+            "label": "Storage Account",
+            "type": "STRING",
+            "visibilityCondition": "model.k8sType == 'AKS'"
+        },
+        {
+            "name": "storageAccountKey",
+            "label": "Storage Account Key",
+            "type": "PASSWORD",
+            "visibilityCondition": "model.k8sType == 'AKS'"
+        },
+        {
+           "name": "wasbLogDirectory",
+            "label": "WASB Log Directory",
+            "type": "STRING",
+            "visibilityCondition": "model.k8sType == 'AKS'" 
+        },
+        {
+            "name": "cloudBucket",
+            "label": "Cloud Storage Bucket/Container",
+            "type": "STRING",
+            "mandatory": true
+        }
+        
+    ],
+
+    /* list of required permissions on the project to see/run the runnable */
+    "permissions": [],
+
+    "resultType": "HTML",
+
+    "resultLabel": "my production",
+
+    "extension": "txt",
+
+    "mimeType": "text/plain",
+
+    "macroRoles": [
+    ]
+}
